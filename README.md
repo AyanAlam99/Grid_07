@@ -8,7 +8,7 @@ This repository contains the Grid07 AI Engineering assignment: semantic routing,
 2. Add your API key: Copy `.env.example` to `.env` and insert your Groq key.
 3. Run the full pipeline: `python main.py`
 
-*(Execution logs for all three phases are saved in `execution_logs.md`)*
+(Execution logs for all three phases are saved in `execution_logs.md`)
 
 ---
 
