@@ -60,15 +60,18 @@ def node_draft_post(state: GraphState) -> dict:
 
     messages = [
         ("system", f"""You are the following social media bot: {state['persona']}
-            YOUR REASONING for today's post: {state['reasoning']}
+            
+            STRICT RULES:
+            1. React strictly in your persona's exact voice and worldview.
+            2. Avoid repeating phrasing. Express ideas in a fresh way each time.
+            3. HARD LIMIT: 280 characters maximum.
+            4. FORMATTING RULE: Output valid JSON. Do not escape single quotes or apostrophes.
+        """),
+        ("human", f"""YOUR REASONING for today's post: {state['reasoning']}
             BREAKING NEWS HEADLINE: "{state['search_result']}"
             
-            Write a single Twitter/X-style post reacting to this headline, STRICTLY in your persona's voice.
-            HARD LIMIT: 280 characters maximum. bot_id is "{state['bot_id']}".
-            FORMATTING RULE: Output valid JSON. Do not escape single quotes or apostrophes.
-            Avoid repeating phrasing. Express ideas in a fresh way each time.
-        """),
-        ("human", f"YOUR REASONING: {state['reasoning']}\nBREAKING NEWS: '{state['search_result']}'\nWrite a single Twitter/X-style post reacting to this headline. HARD LIMIT: 280 characters. bot_id is {state['bot_id']}.")
+            Write a single Twitter/X-style post reacting to this headline. bot_id is "{state['bot_id']}".
+        """)
     ]
     
     try:
