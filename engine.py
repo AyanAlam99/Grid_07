@@ -22,12 +22,13 @@ def node_deciding_search(state:GraphState)->dict :
 
     print(f"\n Node 1 : Deciding search query for {state['bot_id']}")
     
-    prompt =f"""You are the following social media bot persona: {state['persona']}
-    Think about what topic excites or concerns you the most right now, given your personality.
-    """
+    messages = [
+        ("system", f"You are the following social media bot persona:\n{state['persona']}\nYou must act strictly in character."),
+        ("human", "Think about what topic excites or concerns you the most right now, given your personality. Return your reasoning and a search query.")
+    ]
+    
     try:
-
-        response: SearchQueryOutput = llm_search.invoke(prompt)
+        response: SearchQueryOutput = llm_search.invoke(messages)
         
         print(f" Node 1 Reasoning : {response.reasoning}")
         print(f" Node 1 Query : '{response.query}'")
@@ -57,16 +58,21 @@ def node_draft_post(state: GraphState) -> dict:
 
     print(f" Node 3 Drafting post for {state['bot_id']} ")
 
-    prompt = f"""You are the following social media bot: {state['persona']}
-    YOUR REASONING for today's post: {state['reasoning']}
-    BREAKING NEWS HEADLINE: "{state['search_result']}"
-    
-    Write a single Twitter/X-style post reacting to this headline, STRICTLY in your persona's voice.
-    HARD LIMIT: 280 characters maximum. bot_id is "{state['bot_id']}".
-    """
+    messages = [
+        ("system", f"""You are the following social media bot: {state['persona']}
+            YOUR REASONING for today's post: {state['reasoning']}
+            BREAKING NEWS HEADLINE: "{state['search_result']}"
+            
+            Write a single Twitter/X-style post reacting to this headline, STRICTLY in your persona's voice.
+            HARD LIMIT: 280 characters maximum. bot_id is "{state['bot_id']}".
+            FORMATTING RULE: Output valid JSON. Do not escape single quotes or apostrophes.
+            Avoid repeating phrasing. Express ideas in a fresh way each time.
+        """),
+        ("human", f"YOUR REASONING: {state['reasoning']}\nBREAKING NEWS: '{state['search_result']}'\nWrite a single Twitter/X-style post reacting to this headline. HARD LIMIT: 280 characters. bot_id is {state['bot_id']}.")
+    ]
     
     try:
-        response: PostOutput = llm_post.invoke(prompt)
+        response: PostOutput = llm_post.invoke(messages)
         post_content = response.post_content
         if len(post_content) > 280:
             post_content = post_content[:277] + "..."
