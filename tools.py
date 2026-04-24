@@ -34,7 +34,7 @@ def mock_searxng_search(query: str) -> str:
             if headline not in seen:
                 matched_headlines.append(headline)
                 seen.add(headline)
-        if matched_headlines:
+    if matched_headlines:
             return " | ".join(matched_headlines[:2])
         
     return "Breaking: Major technological and economic shifts reshape global landscape in 2026."
