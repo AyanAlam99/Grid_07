@@ -23,3 +23,7 @@ class PostOutput(BaseModel):
     post_content: str = Field(description="The actual post text, strictly max 280 characters")
 
 
+class DefenseOutput(BaseModel):
+    defense_reply: str = Field(description="The defense post, strictly in persona. Max 280 characters.")
+
+
