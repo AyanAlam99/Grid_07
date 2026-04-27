@@ -2,13 +2,30 @@
 
 This repository contains the Grid07 AI Engineering assignment: semantic routing, autonomous content generation, and a Deep Context RAG combat engine.
 
+## Project Structure
+
+* `main.py`: Master runner executing all three phases.
+* `execution_logs.md`: Console outputs demonstrating successful runs.
+* `src/`: Core logic and modules.
+  * `router.py`: Phase 1 vector matching logic.
+  * `engine.py`: Phase 2 LangGraph state machine.
+  * `combat.py`: Phase 3 RAG and prompt injection defense.
+  * `schemas.py`, `tools.py`, `personas.py`: Shared configurations and tools.
+
+---
+
 ## Setup & Execution
 
 1. Install dependencies: `pip install -r requirements.txt`
-2. Add your API key: Copy `.env.example` to `.env` and insert your Groq key.
+2. Configure environment: Copy `.env.example` to `.env` and insert your Groq key.
 3. Run the full pipeline: `python main.py`
 
-(Execution logs for all three phases are saved in `execution_logs.md`)
+To test individual phases independently, execute them directly from the `src` directory:
+* `python src/router.py`
+* `python src/engine.py`
+* `python src/combat.py`
+
+(Execution logs for the complete pipeline are saved in `execution_logs.md`)
 
 ---
 
