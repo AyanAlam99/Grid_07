@@ -1,9 +1,9 @@
 # This script sequentially executes Phase 1, Phase 2, and Phase 3.
 import json
-from personas import PERSONAS
-from router import load_personas_into_vectorstore, route_post_to_bots, display_routing_result
-from engine import run_bot_post
-from combat import generate_defense_reply
+from src.personas import PERSONAS
+from src.router import load_personas_into_vectorstore, route_post_to_bots, display_routing_result
+from src.engine import run_bot_post
+from src.combat import generate_defense_reply
 
 def run_phase_1():
 
